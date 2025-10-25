@@ -3,11 +3,12 @@ name: Docker Image CI
 on:
   push:
     tags:
+      # 匹配所有 v 开头的标签，但在 job 中会过滤只处理完整版本号
       - 'v*'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 env:
@@ -103,3 +104,40 @@ jobs:
         echo "  - Docker Hub: ${{ env.REGISTRY_IMAGE_DOCKERHUB }}" >> $GITHUB_STEP_SUMMARY
         echo "  - GitHub CR: ${{ env.REGISTRY_IMAGE_GHCR }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+
+    # 自动创建/移动主版本 Git tags (v1, v1.2)
+    # 只在推送完整语义化版本标签时执行 (v1.2.3)
+    # 推送时使用 [skip ci] 避免触发新的 workflow 运行
+    - name: Update major version tags
+      if: github.ref_type == 'tag' && !contains(github.ref, '-')
+      run: |
+        # 提取版本号
+        TAG=${GITHUB_REF#refs/tags/}
+        echo "Processing tag: $TAG"
+
+        # 检查是否为完整的语义化版本 (v1.2.3)
+        if [[ $TAG =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+          MAJOR="${BASH_REMATCH[1]}"
+          MINOR="${BASH_REMATCH[2]}"
+
+          # 配置 git
+          git config user.name "AptS-1738"
+          git config user.email "apts-1738@esaps.net"
+
+          # 创建/移动 v1 tag（使用 [skip ci] 避免触发新的 workflow）
+          git tag -fa "v${MAJOR}" -m "chore: update v${MAJOR} to ${TAG} [skip ci]"
+          git push origin "v${MAJOR}" --force
+          echo "✅ Updated v${MAJOR} tag"
+
+          # 创建/移动 v1.2 tag（使用 [skip ci] 避免触发新的 workflow）
+          git tag -fa "v${MAJOR}.${MINOR}" -m "chore: update v${MAJOR}.${MINOR} to ${TAG} [skip ci]"
+          git push origin "v${MAJOR}.${MINOR}" --force
+          echo "✅ Updated v${MAJOR}.${MINOR} tag"
+
+          echo "## Git Tags Updated" >> $GITHUB_STEP_SUMMARY
+          echo "- **Full version**: $TAG" >> $GITHUB_STEP_SUMMARY
+          echo "- **Major version**: v${MAJOR}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minor version**: v${MAJOR}.${MINOR}" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ Tag $TAG is not a full semver (vX.Y.Z), skipping major version tag update"
+        fi
