@@ -1,1 +1,20 @@
+# Rust build artifacts
 /target
+
+# Configuration Files for testing
+wakatime-updater.toml
+
+# Test Files
+test.md
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backup Files
+*.bak
+*.backup

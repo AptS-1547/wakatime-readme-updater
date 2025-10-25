@@ -1,6 +1,6 @@
 [package]
 name = "wakatime-readme-updater"
-version = "0.0.1-alpha.1"
+version = "1.0.0"
 description = "A tool to update your GitHub README with WakaTime stats."
 authors = ["AptS-1547 <apts-1547@esaps.net>"]
 edition = "2024"
@@ -32,3 +32,15 @@ lto = false
 members = ["."]
 
 [dependencies]
+git2 = { version = "0.20.2", features = ["https", "ssh", "vendored-libgit2"], default-features = false}
+reqwest = { version = "0.12.24", features = ["json", "native-tls-vendored"], default-features = false }
+tokio = { version = "1.48.0", default-features = false, features = ["rt-multi-thread", "macros"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+clap = { version = "4.5", features = ["derive", "env", "color"] }
+color-eyre = "0.6"
+chrono = { version = "0.4", features = ["serde"] }
+regex = "1.11"
+toml = "0.9"
+log = "0.4"
+env_logger = "0.11"

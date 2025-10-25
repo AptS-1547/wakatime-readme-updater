@@ -1,0 +1,76 @@
+name: 'WakaTime README Updater'
+description: 'Update your GitHub README with WakaTime coding statistics'
+author: 'AptS-1547'
+
+branding:
+  icon: 'activity'
+  color: 'blue'
+
+inputs:
+  wakatime_api_key:
+    description: 'WakaTime API Key'
+    required: true
+
+  readme_path:
+    description: 'Path to README file'
+    required: false
+    default: 'README.md'
+
+  section_name:
+    description: 'Section name in README to update'
+    required: false
+    default: 'waka'
+
+  stats_range:
+    description: 'Number of days to fetch stats for'
+    required: false
+    default: '7'
+
+  auto_commit:
+    description: 'Whether to commit changes automatically'
+    required: false
+    default: 'true'
+
+  auto_push:
+    description: 'Whether to push changes automatically'
+    required: false
+    default: 'true'
+
+  commit_username:
+    description: 'Git commit username'
+    required: false
+    default: 'github-actions[bot]'
+
+  commit_email:
+    description: 'Git commit email'
+    required: false
+    default: 'github-actions[bot]@users.noreply.github.com'
+
+  gh_token:
+    description: 'GitHub token for pushing'
+    required: true
+
+  repository:
+    description: 'Git repository to clone (e.g., owner/repo). Optional if using checkout action.'
+    required: false
+
+  commit_message:
+    description: 'Git commit message'
+    required: false
+    default: '📊 Updated WakaTime stats'
+
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/apts-1547/wakatime-readme-updater:latest'
+  env:
+    INPUT_WAKATIME_API_KEY: ${{ inputs.wakatime_api_key }}
+    INPUT_README_PATH: ${{ inputs.readme_path }}
+    INPUT_SECTION_NAME: ${{ inputs.section_name }}
+    INPUT_STATS_RANGE: ${{ inputs.stats_range }}
+    INPUT_AUTO_COMMIT: ${{ inputs.auto_commit }}
+    INPUT_AUTO_PUSH: ${{ inputs.auto_push }}
+    INPUT_COMMIT_USERNAME: ${{ inputs.commit_username }}
+    INPUT_COMMIT_EMAIL: ${{ inputs.commit_email }}
+    INPUT_GH_TOKEN: ${{ inputs.gh_token }}
+    INPUT_REPOSITORY: ${{ inputs.repository }}
+    INPUT_COMMIT_MESSAGE: ${{ inputs.commit_message }}

@@ -1,0 +1,37 @@
+# WakaTime README Updater Configuration File Example
+#
+# Priority: CLI arguments > Environment variables > This config file
+#
+# You can also provide configuration via:
+# 1. CLI: --api-key YOUR_KEY
+# 2. Environment variables: export INPUT_WAKATIME_API_KEY=YOUR_KEY
+
+# WakaTime API Key (required)
+# api_key = "your-wakatime-api-key-here"
+
+# README file path (optional, default: README.md)
+# readme_path = "README.md"
+
+# Section name for stats (optional, default: waka)
+# section_name = "waka"
+
+# Number of days for stats (optional, default: 7)
+# stats_range = 7
+
+# Auto-commit changes (optional, default: false)
+# auto_commit = false
+
+# Auto-push changes (optional, default: false)
+# auto_push = false
+
+# Git commit username (optional, will try to read from git config or use default)
+# git_user_name = "github-actions[bot]"
+
+# Git commit email (optional, will try to read from git config or use default)
+# git_user_email = "github-actions[bot]@users.noreply.github.com"
+
+# GitHub token for pushing (optional, uses SSH if not provided)
+# github_token = "ghp_xxxxxxxxxxxx"
+
+# Git commit message (optional)
+# commit_message = "📊 Updated WakaTime stats"
