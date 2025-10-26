@@ -44,7 +44,7 @@ FROM scratch
 
 LABEL maintainer="AptS:1547 <apts-1547@esaps.net>"
 LABEL description="A tool to update your GitHub README with WakaTime stats."
-LABEL version="1.0.0"
+LABEL version="1.0.2"
 LABEL homepage="https://github.com/AptS-1547/wakatime-readme-updater"
 LABEL license="MIT"
 

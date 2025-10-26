@@ -1,6 +1,6 @@
 [package]
 name = "wakatime-readme-updater"
-version = "1.0.0"
+version = "1.0.2"
 description = "A tool to update your GitHub README with WakaTime stats."
 authors = ["AptS-1547 <apts-1547@esaps.net>"]
 edition = "2024"
