@@ -10,7 +10,7 @@ pub struct Config {
     pub api_key: String,
     pub readme_path: PathBuf,
     pub section_name: String,
-    pub stats_range: u32,
+    pub stats_range_str: String,
     pub auto_commit: bool,
     pub auto_push: bool,
     pub git_user_name: String,
@@ -52,10 +52,10 @@ impl Config {
             cli.section_name
         };
 
-        let stats_range = if cli.stats_range == 7 {
-            toml_config.stats_range.unwrap_or(cli.stats_range)
+        let stats_range_str = if cli.stats_range_str == "last_7_days" {
+            toml_config.stats_range_str.unwrap_or(cli.stats_range_str)
         } else {
-            cli.stats_range
+            cli.stats_range_str
         };
 
         let auto_commit = cli
@@ -111,7 +111,7 @@ impl Config {
             api_key,
             readme_path,
             section_name,
-            stats_range,
+            stats_range_str,
             auto_commit,
             auto_push,
             git_user_name,

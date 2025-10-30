@@ -21,10 +21,10 @@ inputs:
     required: false
     default: 'waka'
 
-  stats_range:
-    description: 'Number of days to fetch stats for'
+  stats_range_str:
+    description: 'Time range string for stats (e.g., "last_7_days", "2024", "2024-10", "last_year")'
     required: false
-    default: '7'
+    default: 'all_time'
 
   auto_commit:
     description: 'Whether to commit changes automatically'
@@ -49,10 +49,12 @@ inputs:
   gh_token:
     description: 'GitHub token for pushing'
     required: true
+    default: ${{ github.token }}
 
   repository:
     description: 'Git repository to clone (e.g., owner/repo). Optional if using checkout action.'
     required: false
+    default: ${{ github.repositoryUrl }}
 
   commit_message:
     description: 'Git commit message'
@@ -66,7 +68,7 @@ runs:
     INPUT_WAKATIME_API_KEY: ${{ inputs.wakatime_api_key }}
     INPUT_README_PATH: ${{ inputs.readme_path }}
     INPUT_SECTION_NAME: ${{ inputs.section_name }}
-    INPUT_STATS_RANGE: ${{ inputs.stats_range }}
+    INPUT_STATS_RANGE_STR: ${{ inputs.stats_range_str }}
     INPUT_AUTO_COMMIT: ${{ inputs.auto_commit }}
     INPUT_AUTO_PUSH: ${{ inputs.auto_push }}
     INPUT_COMMIT_USERNAME: ${{ inputs.commit_username }}

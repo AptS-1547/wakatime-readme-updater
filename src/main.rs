@@ -44,8 +44,8 @@ async fn main() -> Result<()> {
 
     // Fetch stats
     info!("Fetching WakaTime data...");
-    let range = format!("last_{}_days", config.stats_range);
-    let stats = client.get_stats(&range).await?;
+    info!("Using range: {}", config.stats_range_str);
+    let stats = client.get_stats(&config.stats_range_str).await?;
 
     // Format stats
     let formatted_stats = StatsFormatter::format(&stats);

@@ -15,8 +15,12 @@
 # Section name for stats (optional, default: waka)
 # section_name = "waka"
 
-# Number of days for stats (optional, default: 7)
-# stats_range = 7
+# Time range for stats (optional, default: "all_time")
+# Supported formats:
+# - Predefined: "last_7_days", "last_30_days", "last_6_months", "last_year", "all_time"
+# - Year format: "2024", "2023"
+# - Year-month format: "2024-10", "2024-01"
+# stats_range_str = "all_time"
 
 # Auto-commit changes (optional, default: false)
 # auto_commit = false

@@ -23,9 +23,9 @@ pub struct Cli {
     #[arg(long, env = "INPUT_CONFIG_PATH", default_value = "wakatime-updater.toml")]
     pub config_path: PathBuf,
 
-    /// Number of days to fetch stats for
-    #[arg(long, env = "INPUT_STATS_RANGE", default_value = "7")]
-    pub stats_range: u32,
+    /// Time range string for stats (e.g., "last_7_days", "2024", "2024-10", "last_year")
+    #[arg(long, env = "INPUT_STATS_RANGE_STR", default_value = "all_time")]
+    pub stats_range_str: String,
 
     /// Whether to commit changes automatically
     #[arg(long, env = "INPUT_AUTO_COMMIT")]

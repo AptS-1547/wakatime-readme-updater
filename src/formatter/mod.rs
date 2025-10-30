@@ -8,70 +8,75 @@ impl StatsFormatter {
     pub fn format(stats: &StatsData) -> String {
         let mut output = String::new();
 
-        // Total time
+        // Start with a single code block for all content
+        output.push_str("```text\n");
+
+        // Total time at the top
         let total_time = format_duration(stats.total_seconds);
-        output.push_str(&format!("**🕐 Total Coding Time**: {}\n\n", total_time));
+        output.push_str(&format!("🕐 Total Coding Time: {}\n\n", total_time));
 
         // Programming languages
         if !stats.languages.is_empty() {
-            output.push_str("**💻 Programming Languages**:\n```text\n");
+            output.push_str("💻 Programming Languages:\n");
             for lang in stats.languages.iter().take(5) {
                 let bar = generate_bar(lang.percent);
                 output.push_str(&format!(
-                    "{:<15} {} {:>6} {}\n",
+                    "{:<15} {:<25} {:>6} {}\n",
                     lang.name,
                     bar,
                     format!("{:.2}%", lang.percent),
                     lang.text
                 ));
             }
-            output.push_str("```\n\n");
+            output.push_str("\n");
         }
 
         // Editors
         if !stats.editors.is_empty() {
-            output.push_str("**🛠️ Editors**:\n```text\n");
+            output.push_str("🛠️ Editors:\n");
             for editor in stats.editors.iter().take(3) {
                 let bar = generate_bar(editor.percent);
                 output.push_str(&format!(
-                    "{:<15} {} {:>6}\n",
+                    "{:<15} {:<25} {:>6}\n",
                     editor.name,
                     bar,
                     format!("{:.2}%", editor.percent)
                 ));
             }
-            output.push_str("```\n\n");
+            output.push_str("\n");
         }
 
         // Operating systems
         if !stats.operating_systems.is_empty() {
-            output.push_str("**💻 Operating Systems**:\n```text\n");
+            output.push_str("💻 Operating Systems:\n");
             for os in stats.operating_systems.iter().take(3) {
                 let bar = generate_bar(os.percent);
                 output.push_str(&format!(
-                    "{:<15} {} {:>6}\n",
+                    "{:<15} {:<25} {:>6}\n",
                     os.name,
                     bar,
                     format!("{:.2}%", os.percent)
                 ));
             }
-            output.push_str("```\n\n");
+            output.push_str("\n");
         }
 
         // Projects
         if !stats.projects.is_empty() {
-            output.push_str("**📂 Projects**:\n```text\n");
+            output.push_str("📂 Projects:\n");
             for project in stats.projects.iter().take(5) {
                 let bar = generate_bar(project.percent);
                 output.push_str(&format!(
-                    "{:<30} {} {:>6}\n",
+                    "{:<30} {:<25} {:>6}\n",
                     project.name,
                     bar,
                     format!("{:.2}%", project.percent)
                 ));
             }
-            output.push_str("```\n");
         }
+
+        // Close the code block
+        output.push_str("```\n");
 
         output
     }

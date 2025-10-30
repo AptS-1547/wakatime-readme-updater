@@ -22,5 +22,5 @@ jobs:
           # Optional: customize settings below
           # readme_path: 'README.md'
           # section_name: 'waka'
-          # stats_range: '7'
+          # stats_range_str: 'all_time'  # Also supports: "2024", "2024-10", "last_year", "all_time"
           # commit_message: '📊 Updated WakaTime stats'
